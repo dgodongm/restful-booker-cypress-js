@@ -56,7 +56,6 @@ describe("Get Bookings spec", () => {
   });
 
   it("Get Booking by Checkin", () => {
-    cy.wait(1000);
     bookings_wrapper
       .get_booking_by({ checkin: sampleCheckinStr })
       .then((response) => {
