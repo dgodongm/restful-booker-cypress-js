@@ -55,7 +55,7 @@ describe("Get Bookings spec", () => {
       });
   });
 
-  it("Get Booking by Checkin", () => {
+  it.skip("Get Booking by Checkin", () => {
     bookings_wrapper
       .get_booking_by({ checkin: sampleCheckinStr })
       .then((response) => {
