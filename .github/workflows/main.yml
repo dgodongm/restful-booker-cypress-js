@@ -19,12 +19,12 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
+          record: true
+          parallel: true
+          group: "Chrome"
           start: npm start
           # quote the url to be safe against YML parsing surprises
           wait-on: "http://localhost:3001"
-          record: true
-          parallel: true
-          group: "Actions example"
         env:
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
