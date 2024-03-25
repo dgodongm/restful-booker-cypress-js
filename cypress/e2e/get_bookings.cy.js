@@ -6,17 +6,21 @@ describe("Get Bookings spec", () => {
   const sampleFName = bookings_generator.generate_firstname();
   const sampleLName = bookings_generator.generate_lastname();
   const sampleCheckin = new Date();
-  const sampleCheckinStr =
-    bookings_helpers.convertToBookingDateString(sampleCheckin);
+  const sampleCheckinStr = "2025-06-07"; // bookings_helpers.convertToBookingDateString(sampleCheckin);
   const sampleCheckout = new Date();
-  const sampleCheckoutStr =
-    bookings_helpers.convertToBookingDateString(sampleCheckout);
+  const sampleCheckoutStr = "2024-06-17"; // bookings_helpers.convertToBookingDateString(sampleCheckout);
   let newbooking;
+  let checkinMinus1Str;
 
   before(() => {
     newbooking = bookings_generator.generate_booking();
     newbooking.firstname = sampleFName;
     newbooking.lastname = sampleLName;
+    let checkinMinus1 = new Date(newbooking.bookingdates.checkin);
+    checkinMinus1.setDate(checkinMinus1.getDate() - 1);
+    checkinMinus1Str =
+      bookings_helpers.convertToBookingDateString(checkinMinus1);
+    cy.log("checkinMinus1Str: " + checkinMinus1Str);
     // newbooking.bookingdates.checkin = sampleCheckinStr;
     // newbooking.bookingdates.checkout = sampleCheckoutStr;
     bookings_wrapper.create_booking(newbooking);
