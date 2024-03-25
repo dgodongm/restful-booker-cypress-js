@@ -5,24 +5,12 @@ import bookings_helpers from "../utils/bookings_helpers";
 describe("Get Bookings spec", () => {
   const sampleFName = bookings_generator.generate_firstname();
   const sampleLName = bookings_generator.generate_lastname();
-  const sampleCheckin = new Date();
-  const sampleCheckinStr = "2025-06-07"; // bookings_helpers.convertToBookingDateString(sampleCheckin);
-  const sampleCheckout = new Date();
-  const sampleCheckoutStr = "2024-06-17"; // bookings_helpers.convertToBookingDateString(sampleCheckout);
   let newbooking;
-  let checkinMinus1Str;
 
   before(() => {
     newbooking = bookings_generator.generate_booking();
     newbooking.firstname = sampleFName;
     newbooking.lastname = sampleLName;
-    let checkinMinus1 = new Date(newbooking.bookingdates.checkin);
-    checkinMinus1.setDate(checkinMinus1.getDate() - 1);
-    checkinMinus1Str =
-      bookings_helpers.convertToBookingDateString(checkinMinus1);
-    cy.log("checkinMinus1Str: " + checkinMinus1Str);
-    // newbooking.bookingdates.checkin = sampleCheckinStr;
-    // newbooking.bookingdates.checkout = sampleCheckoutStr;
     bookings_wrapper.create_booking(newbooking);
   });
 
@@ -61,6 +49,11 @@ describe("Get Bookings spec", () => {
   });
 
   it("Get Booking by Checkin", () => {
+    // workaround for fact that restful booker saves dates off by one
+    let checkinMinus1 = new Date(newbooking.bookingdates.checkin);
+    checkinMinus1.setDate(checkinMinus1.getDate() - 1);
+    let checkinMinus1Str =
+      bookings_helpers.convertToBookingDateString(checkinMinus1);
     bookings_wrapper
       .get_booking_by({ checkin: checkinMinus1Str })
       .then((response) => {
