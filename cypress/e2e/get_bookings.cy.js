@@ -5,19 +5,12 @@ import bookings_helpers from "../utils/bookings_helpers";
 describe("Get Bookings spec", () => {
   const sampleFName = bookings_generator.generate_firstname();
   const sampleLName = bookings_generator.generate_lastname();
-  const sampleCheckin = new Date();
-  let sampleCheckinStr =
-    bookings_helpers.convertToBookingDateString(sampleCheckin);
-  const sampleCheckout = new Date();
-  let sampleCheckoutStr =
-    bookings_helpers.convertToBookingDateString(sampleCheckout);
+  let newbooking;
 
   before(() => {
-    let newbooking = bookings_generator.generate_booking();
+    newbooking = bookings_generator.generate_booking();
     newbooking.firstname = sampleFName;
     newbooking.lastname = sampleLName;
-    newbooking.bookingdates.checkin = sampleCheckinStr;
-    newbooking.bookingdates.checkout = sampleCheckoutStr;
     bookings_wrapper.create_booking(newbooking);
   });
 
@@ -56,8 +49,13 @@ describe("Get Bookings spec", () => {
   });
 
   it("Get Booking by Checkin", () => {
+    // workaround for fact that restful booker saves dates off by one
+    let checkinMinus1 = new Date(newbooking.bookingdates.checkin);
+    checkinMinus1.setDate(checkinMinus1.getDate() - 1);
+    let checkinMinus1Str =
+      bookings_helpers.convertToBookingDateString(checkinMinus1);
     bookings_wrapper
-      .get_booking_by({ checkin: sampleCheckinStr })
+      .get_booking_by({ checkin: checkinMinus1Str })
       .then((response) => {
         expect(response.status).to.be.equal(200);
         expect(response.body).to.have.lengthOf.above(0);
@@ -66,7 +64,7 @@ describe("Get Bookings spec", () => {
 
   it("Get Booking by Checkout", () => {
     bookings_wrapper
-      .get_booking_by({ checkout: sampleCheckoutStr })
+      .get_booking_by({ checkout: newbooking.bookingdates.checkout })
       .then((response) => {
         expect(response.status).to.be.equal(200);
         expect(response.body).to.have.lengthOf.above(0);
