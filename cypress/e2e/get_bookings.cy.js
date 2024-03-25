@@ -62,7 +62,7 @@ describe("Get Bookings spec", () => {
 
   it("Get Booking by Checkin", () => {
     bookings_wrapper
-      .get_booking_by({ checkin: newbooking.bookingdates.checkin })
+      .get_booking_by({ checkin: checkinMinus1Str })
       .then((response) => {
         expect(response.status).to.be.equal(200);
         expect(response.body).to.have.lengthOf.above(0);
