@@ -1,5 +1,5 @@
 # restful-booker-cypress-js
-Cypress automation suite for the simple Node booking RESTful web services. Refer to original repo at https://github.com/mwinteringham/restful-booker for more info on the API.
+Cypress automation suite for the simple Node booking RESTful web services. Refer to original repo at https://github.com/mwinteringham/restful-booker for more info on the API
 This automation suite demonstrates:
 * Testing most common HTTP verb APIs: GET, POST, PATCH, PUT, and DELETE
 * Verifying status reponse and body contents
