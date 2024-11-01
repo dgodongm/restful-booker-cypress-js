@@ -21,7 +21,7 @@ jobs:
           browser: chrome
           # record: false
           # parallel: false
-          group: "Chrome"
+          # group: "Chrome"
           start: npm start
           # quote the url to be safe against YML parsing surprises
           wait-on: "http://localhost:3001"
