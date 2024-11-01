@@ -20,7 +20,7 @@ jobs:
         with:
           browser: chrome
           record: true
-          parallel: true
+          parallel: false
           group: "Chrome"
           start: npm start
           # quote the url to be safe against YML parsing surprises
