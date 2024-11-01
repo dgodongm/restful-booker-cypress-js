@@ -19,8 +19,8 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          record: false
-          parallel: false
+          # record: false
+          # parallel: false
           group: "Chrome"
           start: npm start
           # quote the url to be safe against YML parsing surprises
